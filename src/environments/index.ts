@@ -30,5 +30,5 @@ const enviroment = {
   production: databaseConfig,
 };
 const TYPEORM = enviroment[NODE_ENV];
-
-export { NODE_ENV, TYPEORM };
+const KAFKA_BROKERS = process.env.KAFKA_BROKERS;
+export { NODE_ENV, TYPEORM, KAFKA_BROKERS };
