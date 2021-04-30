@@ -12,19 +12,18 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        os: [ubuntu-latest, macOS-latest]
 
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 14.x
     - run: yarn
     - run: yarn build
     - run: yarn test
@@ -37,9 +36,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        push: true
+        #push: true
         tags: dhananjayofficial/library-api:latest
-    - name: Image digest
-      run: echo ${{ steps.docker_build.outputs.digest }}
 
       
