@@ -14,7 +14,7 @@ pipeline {
     stage('build') {
       steps {
         nodejs('nodejs') {
-          sh 'npm build'
+          sh 'npm run build'
         }
 
       }
@@ -23,7 +23,7 @@ pipeline {
     stage('test') {
       steps {
         nodejs('nodejs') {
-          sh 'npm test'
+          sh 'npm run test'
         }
 
       }
