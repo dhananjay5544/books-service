@@ -2,6 +2,8 @@ pipeline {
   agent any
   environment{
     registry = 'dhananjayofficial/book-service'
+    registryCredential = 'dockercred'
+    dockerImage = ''
   }
   stages {
     stage('build and test') {
@@ -20,7 +22,17 @@ pipeline {
     stage('build image') {
       steps {
         script { 
-          docker.build registry + ":$BUILD_NUMBER"
+          dockerImage = docker.build registry
+        }
+      }
+    }
+    stage('publish image') {
+      steps {
+        script { 
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push("$BUILD_NUMBER")
+            dockerImage.push('latest')
+          }
         }
       }
     }
