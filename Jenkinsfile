@@ -1,7 +1,6 @@
 pipeline {
   agent any
   environment{
-    dockerImage = ''
     registry = 'dhananjayofficial/book-service'
   }
   stages {
@@ -18,10 +17,10 @@ pipeline {
         }
       }
     }
-    stage('build image'){
-      steps{
-        script{
-          dockerImage = docker.build registry
+    stage('build image') {
+      steps {
+        script { 
+          docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
