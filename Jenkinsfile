@@ -5,7 +5,7 @@ pipeline {
       agent any
       steps {
         nodejs('nodejs') {
-          sh 'yarn'
+          sh 'npm install'
         }
 
       }
@@ -14,7 +14,7 @@ pipeline {
     stage('build') {
       steps {
         nodejs('nodejs') {
-          sh 'yarn build'
+          sh 'npm build'
         }
 
       }
@@ -23,7 +23,7 @@ pipeline {
     stage('test') {
       steps {
         nodejs('nodejs') {
-          sh 'yarn test'
+          sh 'npm test'
         }
 
       }
