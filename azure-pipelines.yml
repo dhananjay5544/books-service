@@ -9,14 +9,33 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  imageName: 'dhananjayofficial/book-service'
+
 steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    yarn
-    yarn build
-    yarn test
-  displayName: 'build and test'
+- script: yarn
+  displayName: 'Install dependencies'
+
+- script: yarn build
+  displayName: 'Build project'
+
+- script: yarn test
+  displayName: 'Run test cases'
+- task: Docker@2
+  inputs:
+    repository: $(imageName)
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
+  displayName: 'Build image'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'docker-registry'
+    repository: '$(imageName)'
+    command: 'push'
+  displayName: 'Push image to docker-hub'
