@@ -1,27 +1,17 @@
 pipeline {
   agent any
   stages {
-    stage('install dependencies') {
+    stage('build and test') {
       agent any
       steps {
         nodejs('nodejs') {
           sh 'yarn'
         }
 
-      }
-    }
-
-    stage('build') {
-      steps {
         nodejs('nodejs') {
           sh 'yarn build'
         }
 
-      }
-    }
-
-    stage('test') {
-      steps {
         nodejs('nodejs') {
           sh 'yarn test'
         }
