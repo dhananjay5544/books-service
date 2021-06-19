@@ -5,7 +5,7 @@ on:
       tag:
         description: 'Image tag - should point to latest commit.'
         required: true
-        default: ${{ github.sha }}
+        default: 'latest'
 
 jobs:
     build-and-push:
